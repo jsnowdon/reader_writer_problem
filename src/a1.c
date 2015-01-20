@@ -21,7 +21,7 @@
 int main (int argc, char *argv[])
 {
 	int numOfReaders = 0, numOfWriters = 0, iterations = 0, rc;
-	long i;
+	int i;
 
 	/*Get the number of reader and writer threads from the user
 	  along with the number of iterations*/
@@ -123,16 +123,22 @@ void *readerThreads(void *threadData)
 		/*create buffer*/
 		char *buffer = (char *)calloc(bufferSize,sizeof(int));
 
-		fp = fopen(FILENAME, "rb");
+		fp = fopen(FILENAME, "rb+");
 
 		/*get all integers from file*/
 		for( j = 0; j < bufferSize; j++){
+			/*move to correct integer*/
+			fseek(fp,sizeof(int)*j,SEEK_SET);
 			/*read integer into temp*/
     		fread(&temp, sizeof(int), 1, fp);
     		/*convert integer to string*/
     		sprintf(intString, "%d", temp);
+
     		/*add new interger string to buffer*/
     		strncat(buffer,intString,sizeof(int));
+
+    		/*rewind the filepointer*/
+    		rewind(fp);
     	}
 
     	printf("I am thread #%d, iteration #%d and the file contains: %s\n", threadID, i+1, buffer);
@@ -144,6 +150,7 @@ void *readerThreads(void *threadData)
     	/*unlock our own reader lock*/
     	pthread_mutex_unlock (&curReaderLock);
 
+    	/*sleep for a bit*/
 		sleep(rand()%2);
 	}
 
@@ -178,13 +185,17 @@ void *writerThreads(void *threadData)
 		/*lock the global writer lock*/
 		pthread_mutex_lock (&writerLock);
 
-		fp = fopen(FILENAME, "wb+");
+		fp = fopen(FILENAME, "rb+");
 
 		/*get all integers from file*/
 		for( j = 0; j < fileSize; j++){
+
 			/*read integer into temp*/
 			fseek(fp,sizeof(int)*j,SEEK_SET);
     		fread(&temp, sizeof(int), 1, fp);
+    		
+    		/*rewind the filepointer*/
+    		rewind(fp);
 
     		/*get the writers integer from the file*/
     		if(threadID == j+1){
@@ -193,6 +204,10 @@ void *writerThreads(void *threadData)
     			/*write the new integer to the file*/
     			fseek(fp,sizeof(int)*j,SEEK_SET);
 				fwrite(&temp,sizeof(int),1, fp);
+
+				/*rewind the filepointer*/
+    			rewind(fp);
+
 				/*make sure no errors occured*/
 				if(ferror(fp)){
 					printf("Error writing to file\n");
@@ -205,12 +220,15 @@ void *writerThreads(void *threadData)
     	fclose(fp);
 
     	/*unlock the global writer lock*/
-    	pthread_mutex_unlock (&curReaderLock);
+    	pthread_mutex_unlock (&writerLock);
 
     	/*unlock all the reader locks*/
 		for( k = 0; k < numOfReaders; k++ ){
 			pthread_mutex_unlock (&listOfReaderLocks[k]);
 		}
+
+		/*sleep for a bit*/
+		sleep(rand()%2);
 	}
 
 	pthread_exit(NULL);
