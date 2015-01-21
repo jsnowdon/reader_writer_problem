@@ -92,7 +92,23 @@ int main (int argc, char *argv[])
 	  	}
 	}
 
-	/* Last thing that main() should do */
+	/* begin cleanup to avoid memory leaks */
+	
+	/* join all the reader the pthreads so no memory leaks */
+	for( i = 0; i < numOfReaders; i++ ){
+		pthread_join(readers[i], NULL);
+	}
+
+	/* join all the writer the pthreads so no memory leaks */
+	for( i = 0; i < numOfWriters; i++ ){
+		pthread_join(writers[i], NULL);
+	}
+
+	/* cleanup */
+	pthread_mutex_destroy(readerLocks);
+	/* cleanup */
+	free(readerLocks);
+	/* cleanup */
 	pthread_exit(NULL);
 
  	return 0;
@@ -154,7 +170,8 @@ void *readerThreads(void *threadData)
 		sleep(rand()%2);
 	}
 
-	pthread_exit(NULL);
+	/* cleanup */
+	pthread_exit((void *)threadData);
 }
 
 void *writerThreads(void *threadData)
@@ -231,7 +248,8 @@ void *writerThreads(void *threadData)
 		sleep(rand()%2);
 	}
 
-	pthread_exit(NULL);
+	/* cleanup */
+	pthread_exit((void *)threadData);
 }
 
 void getUserInput(int *numOfReaders, int *numOfWriters, int *iterations)
