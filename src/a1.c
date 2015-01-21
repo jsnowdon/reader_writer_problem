@@ -37,7 +37,8 @@ int main (int argc, char *argv[])
 	pthread_mutex_t *readerLocks = malloc(sizeof(pthread_mutex_t)*numOfReaders);
 
 	/*Initialize all the reader locks*/
-	for ( i = 0; i < numOfReaders; i++ ){
+	for ( i = 0; i < numOfReaders; i++ )
+	{
 		pthread_mutex_init( &readerLocks[i], NULL);
 	}
 
@@ -47,7 +48,8 @@ int main (int argc, char *argv[])
 	/*Create an array of structures for the readers*/
 	thread_data reader_data_array[numOfReaders];
 
-	for( i = 0; i < numOfReaders; i++ ){
+	for( i = 0; i < numOfReaders; i++ )
+	{
 
 		/*initialize struct*/
 		reader_data_array[i].thread_id = i+1;
@@ -61,7 +63,8 @@ int main (int argc, char *argv[])
 		rc = pthread_create(&readers[i], NULL, readerThreads, &reader_data_array[i]);
 
 		/*ensure no errors*/
-		if (rc){
+		if (rc)
+		{
 	    	printf("ERROR; return code from pthread_create() is %d\n", rc);
 	    	exit(-1);
 	  	}
@@ -72,7 +75,8 @@ int main (int argc, char *argv[])
 
 	thread_data writer_data_array[numOfWriters];
 
-	for( i = 0; i < numOfWriters; i++ ){
+	for( i = 0; i < numOfWriters; i++ )
+	{
 
 		/*initialize struct*/
 		writer_data_array[i].thread_id = i+1;
@@ -86,21 +90,24 @@ int main (int argc, char *argv[])
 		rc = pthread_create(&writers[i], NULL, writerThreads, &writer_data_array[i]);
 
 		/*ensure no errors*/
-		if (rc){
+		if (rc)
+		{
 	    	printf("ERROR; return code from pthread_create() is %d\n", rc);
 	    	exit(-1);
 	  	}
 	}
 
 	/* begin cleanup to avoid memory leaks */
-	
+
 	/* join all the reader the pthreads so no memory leaks */
-	for( i = 0; i < numOfReaders; i++ ){
+	for( i = 0; i < numOfReaders; i++ )
+	{
 		pthread_join(readers[i], NULL);
 	}
 
 	/* join all the writer the pthreads so no memory leaks */
-	for( i = 0; i < numOfWriters; i++ ){
+	for( i = 0; i < numOfWriters; i++ )
+	{
 		pthread_join(writers[i], NULL);
 	}
 
@@ -131,7 +138,8 @@ void *readerThreads(void *threadData)
 	bufferSize = my_data->numOfWriters;
 	curReaderLock = my_data->readerLock;
 
-	for( i = 0; i < iterations; i++){
+	for( i = 0; i < iterations; i++)
+	{
 
 		/*lock our own reader lock*/
 		pthread_mutex_lock (&curReaderLock);
@@ -142,7 +150,8 @@ void *readerThreads(void *threadData)
 		fp = fopen(FILENAME, "rb+");
 
 		/*get all integers from file*/
-		for( j = 0; j < bufferSize; j++){
+		for( j = 0; j < bufferSize; j++)
+		{
 			/*move to correct integer*/
 			fseek(fp,sizeof(int)*j,SEEK_SET);
 			/*read integer into temp*/
@@ -192,10 +201,12 @@ void *writerThreads(void *threadData)
 	listOfReaderLocks = my_data->listOfReaderLocks;
 
 
-	for( i = 0; i < iterations; i++){
+	for( i = 0; i < iterations; i++)
+	{
 
 		/*lock all the reader locks*/
-		for( k = 0; k < numOfReaders; k++ ){
+		for( k = 0; k < numOfReaders; k++ )
+		{
 			pthread_mutex_lock (&listOfReaderLocks[k]);
 		}
 
@@ -205,7 +216,8 @@ void *writerThreads(void *threadData)
 		fp = fopen(FILENAME, "rb+");
 
 		/*get all integers from file*/
-		for( j = 0; j < fileSize; j++){
+		for( j = 0; j < fileSize; j++)
+		{
 
 			/*read integer into temp*/
 			fseek(fp,sizeof(int)*j,SEEK_SET);
@@ -215,7 +227,8 @@ void *writerThreads(void *threadData)
     		rewind(fp);
 
     		/*get the writers integer from the file*/
-    		if(threadID == j+1){
+    		if(threadID == j+1)
+    		{
     			/*increment the number*/
     			temp = temp + 1;
     			/*write the new integer to the file*/
@@ -226,7 +239,8 @@ void *writerThreads(void *threadData)
     			rewind(fp);
 
 				/*make sure no errors occured*/
-				if(ferror(fp)){
+				if(ferror(fp))
+				{
 					printf("Error writing to file\n");
 					exit(-1);
 				}
@@ -240,7 +254,8 @@ void *writerThreads(void *threadData)
     	pthread_mutex_unlock (&writerLock);
 
     	/*unlock all the reader locks*/
-		for( k = 0; k < numOfReaders; k++ ){
+		for( k = 0; k < numOfReaders; k++ )
+		{
 			pthread_mutex_unlock (&listOfReaderLocks[k]);
 		}
 
@@ -274,17 +289,20 @@ void initFile(int numOfWriters)
 	FILE *fp = fopen(FILENAME, "wb");
 
 	/*check that the file opened correctly*/
-	if(!fp){
+	if(!fp)
+	{
 		printf("Error opening file\n");
 		exit(-1);
 	}
 
 	/*print a 0 to the file for every writer*/
-	for ( i = 0; i < numOfWriters; i++){
+	for ( i = 0; i < numOfWriters; i++)
+	{
 		/*write the zero to the binary file*/
 		fwrite(&placeHolder,sizeof(int),1, fp);
 		/*make sure no errors occured*/
-		if(ferror(fp)){
+		if(ferror(fp))
+		{
 			printf("Error writing to file\n");
 			exit(-1);
 		}
