@@ -1,0 +1,87 @@
+Please enter the number of Reader Threads:
+4
+Please enter the number of Writer Threads:
+7
+Please enter the number of iterations:
+20
+---------------------------------------
+I am thread #2, iteration #1 and the file contains: 0000000
+I am thread #1, iteration #1 and the file contains: 0000000
+I am thread #4, iteration #1 and the file contains: 0000000
+I am thread #3, iteration #1 and the file contains: 0000000
+I am thread #4, iteration #2 and the file contains: 1000000
+I am thread #2, iteration #2 and the file contains: 1321126
+I am thread #2, iteration #3 and the file contains: 2321126
+I am thread #1, iteration #2 and the file contains: 2421126
+I am thread #1, iteration #3 and the file contains: 2421126
+I am thread #1, iteration #4 and the file contains: 2421126
+I am thread #1, iteration #5 and the file contains: 2421126
+I am thread #3, iteration #2 and the file contains: 2421126
+I am thread #4, iteration #3 and the file contains: 2431226
+I am thread #4, iteration #4 and the file contains: 2431226
+I am thread #4, iteration #5 and the file contains: 2441226
+I am thread #2, iteration #4 and the file contains: 3442248
+I am thread #1, iteration #6 and the file contains: 3442248
+I am thread #3, iteration #3 and the file contains: 3642248
+I am thread #3, iteration #4 and the file contains: 3642348
+I am thread #4, iteration #6 and the file contains: 3642448
+I am thread #4, iteration #7 and the file contains: 3642548
+I am thread #2, iteration #5 and the file contains: 4655589
+I am thread #1, iteration #7 and the file contains: 6655589
+I am thread #1, iteration #8 and the file contains: 6655589
+I am thread #3, iteration #5 and the file contains: 6755589
+I am thread #4, iteration #8 and the file contains: 6755789
+I am thread #4, iteration #9 and the file contains: 6755789
+I am thread #2, iteration #6 and the file contains: 676771215
+I am thread #1, iteration #9 and the file contains: 776771215
+I am thread #1, iteration #10 and the file contains: 876771215
+I am thread #1, iteration #11 and the file contains: 886771215
+I am thread #1, iteration #12 and the file contains: 896771215
+I am thread #1, iteration #13 and the file contains: 896771215
+I am thread #1, iteration #14 and the file contains: 896771215
+I am thread #1, iteration #15 and the file contains: 896781215
+I am thread #1, iteration #16 and the file contains: 896781215
+I am thread #4, iteration #10 and the file contains: 896781215
+I am thread #4, iteration #11 and the file contains: 896781215
+I am thread #4, iteration #12 and the file contains: 896781215
+I am thread #4, iteration #13 and the file contains: 896781215
+I am thread #3, iteration #6 and the file contains: 896881215
+I am thread #2, iteration #7 and the file contains: 898881618
+I am thread #1, iteration #17 and the file contains: 9118891618
+I am thread #1, iteration #18 and the file contains: 9118891618
+I am thread #4, iteration #14 and the file contains: 9118891618
+I am thread #3, iteration #7 and the file contains: 9118991618
+I am thread #2, iteration #8 and the file contains: 9119991719
+I am thread #1, iteration #19 and the file contains: 101399101719
+I am thread #1, iteration #20 and the file contains: 101399101719
+I am thread #4, iteration #15 and the file contains: 101399101719
+I am thread #3, iteration #8 and the file contains: 1013911101719
+I am thread #3, iteration #9 and the file contains: 1013911101719
+I am thread #3, iteration #10 and the file contains: 1013911101719
+I am thread #2, iteration #9 and the file contains: 10131111101820
+I am thread #2, iteration #10 and the file contains: 10131111101820
+I am thread #2, iteration #11 and the file contains: 10131111101820
+I am thread #2, iteration #12 and the file contains: 10131111101820
+I am thread #4, iteration #16 and the file contains: 12151112121820
+I am thread #3, iteration #11 and the file contains: 12151113121820
+I am thread #2, iteration #13 and the file contains: 12151213122020
+I am thread #2, iteration #14 and the file contains: 12151213122020
+I am thread #4, iteration #17 and the file contains: 14201213132020
+I am thread #4, iteration #18 and the file contains: 14201214132020
+I am thread #3, iteration #12 and the file contains: 14201214132020
+I am thread #2, iteration #15 and the file contains: 14201314132020
+I am thread #4, iteration #19 and the file contains: 17201315142020
+I am thread #4, iteration #20 and the file contains: 17201315142020
+I am thread #3, iteration #13 and the file contains: 17201415142020
+I am thread #3, iteration #14 and the file contains: 17201515142020
+I am thread #2, iteration #16 and the file contains: 17201515142020
+I am thread #3, iteration #15 and the file contains: 18201616152020
+I am thread #3, iteration #16 and the file contains: 18201716152020
+I am thread #2, iteration #17 and the file contains: 18201716152020
+I am thread #2, iteration #18 and the file contains: 18201716152020
+I am thread #3, iteration #17 and the file contains: 20201817162020
+I am thread #3, iteration #18 and the file contains: 20201817162020
+I am thread #3, iteration #19 and the file contains: 20201817162020
+I am thread #3, iteration #20 and the file contains: 20201817162020
+I am thread #2, iteration #19 and the file contains: 20201817162020
+I am thread #2, iteration #20 and the file contains: 20201817162020

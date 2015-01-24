@@ -41,4 +41,4 @@ debug: a1_DEBUG
 
 clean:
 		@ rm $(BDIR)/a1 *.o
-		@ rm ./file.bin
+		@ rm $(BDIR)/file.bin
